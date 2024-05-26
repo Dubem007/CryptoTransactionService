@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "n/4jtfOKcxbLgN7IXiMgrX3SaPylRSI+1945QqNyqXQ=",
+  "Source": "CryptoTransaction.API",
+  "BasePath": "_content/CryptoTransaction.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
