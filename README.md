@@ -6,7 +6,8 @@ A microservice that that handles the grunt work of checking for transaction upda
 - When clone is done, then build the project to check if there are dependecy which would not be as the project has all packages avaialable
 - Run the migration available on the project to create and update you databse (Mssql databse used)
 - Then click to run the project
-================To Use Docker Support ====================
+  
+# ================To Use Docker Support ====================
 - When clone is done, then go to the project on cmd terminal and type docker-compose up
 - it builds the project int your docker desktop then you run the project using the localhost and port 
 
