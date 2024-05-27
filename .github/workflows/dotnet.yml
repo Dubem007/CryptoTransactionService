@@ -20,9 +20,17 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 6.0.x
-    - name: Restore dependencies
-      run: dotnet restore
-    - name: Build
-      run: dotnet build --no-restore
+    - name: Restore dependencies for API project
+      run: dotnet restore ./CryptoTransactionService.API.csproj
+
+    - name: Build API project
+      run: dotnet build ./CryptoTransactionService.API.csproj --configuration Release --no-restore
+
+    - name: Restore dependencies for Test project
+      run: dotnet restore ./CryptoTransactionService.TEST.csproj
+
+    - name: Build Test project
+      run: dotnet build ./CryptoTransactionService.TEST.csproj --configuration Release --no-restore
+
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test ./CryptoTransactionService.TEST.csproj --no-build --verbosity normal
