@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CryptoTransaction.TEST")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d2a46f63d39fa128892d61095a734620619c8e29")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3cbb1137ae5c95fd333a859a9bd13343e92cb941")]
 [assembly: System.Reflection.AssemblyProductAttribute("CryptoTransaction.TEST")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CryptoTransaction.TEST")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

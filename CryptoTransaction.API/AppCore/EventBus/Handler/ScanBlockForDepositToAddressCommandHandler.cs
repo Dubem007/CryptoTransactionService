@@ -41,7 +41,7 @@ namespace CryptoTransaction.API.AppCore.EventBus.Handler
                     var transactions = await _transactionService.GetTransactionsByWalletAddressAsync(allsortedwalletAddress[i]);
                    
 
-                    for (int k = 0; k < allsortedwalletAddress.Count; k++)
+                    for (int k = 0; k < transactions.Count; k++)
                     {
                         if (!string.IsNullOrEmpty(transactions[k].SenderAddress) &&
                             !string.IsNullOrEmpty(transactions[k].ReceiverAddress) &&
