@@ -26,7 +26,15 @@ namespace CryptoTransaction.API.Controllers
             {
                 // Assuming you have a way to filter transactions by block number, address, and currency
                 var transactions = await _transactionRepository.GetTransactionsByQueryAsync(blockNumber, address, currency);
-                return Ok(transactions);
+                if (transactions.IsSuccess)
+                {
+                    return Ok(transactions);
+                }
+                else 
+                {
+                    return NotFound(transactions);
+                }
+                
             }
             catch (Exception ex)
             {
@@ -35,16 +43,5 @@ namespace CryptoTransaction.API.Controllers
            
         }
 
-        [HttpPost("scan-block")]
-        public async Task<IActionResult> ScanBlock([FromBody] ScanBlockForDepositToAddressCommand command)
-        {
-            if (command == null)
-            {
-                return BadRequest("Invalid command.");
-            }
-
-            await _commandBus.SendAsync(command);
-            return Ok("Block scanning initiated.");
-        }
     }
 }

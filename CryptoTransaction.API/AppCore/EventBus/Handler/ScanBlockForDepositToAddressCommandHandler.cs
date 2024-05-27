@@ -37,41 +37,49 @@ namespace CryptoTransaction.API.AppCore.EventBus.Handler
             {
                 if (allsortedwalletAddress[i] != null)
                 {
-                    var transactions = await _transactionService.GetTransactionsByWalletAddressAsync(allsortedwalletAddress[i]);
+                    var processedTransactionHashes = new HashSet<string>();
 
-                    for (int k = 0; k < transactions.Count; k++)
+                    foreach (var address in allsortedwalletAddress)
                     {
-                        if (!string.IsNullOrEmpty(transactions[k].SenderAddress) &&
-                            !string.IsNullOrEmpty(transactions[k].ReceiverAddress) &&
-                            !string.IsNullOrEmpty(transactions[k].TransactionHash))
+                        var transactions = await _transactionService.GetTransactionsByWalletAddressAsync(address);
+
+                        foreach (var tx in transactions)
                         {
-                            var transaction = new WalletTransaction()
+                            if (!string.IsNullOrEmpty(tx.SenderAddress) &&
+                                !string.IsNullOrEmpty(tx.ReceiverAddress) &&
+                                !string.IsNullOrEmpty(tx.TransactionHash) &&
+                                !processedTransactionHashes.Contains(tx.TransactionHash))
                             {
-                                ReceiverAddress = transactions[k].ReceiverAddress,
-                                SenderAddress = transactions[k].SenderAddress,
-                                TransactionHash = transactions[k].TransactionHash,
-                                Amount = transactions[k].Amount,
-                                BlockNumber = transactions[k].BlockNumber,
-                                Timestamp = DateTime.UtcNow,
-                                Currency = transactions[k].Currency,
-                                Network = command.Network
-                            };
-                            allTransactions.Add(transaction);
+                                var transaction = new WalletTransaction()
+                                {
+                                    ReceiverAddress = tx.ReceiverAddress,
+                                    SenderAddress = tx.SenderAddress,
+                                    TransactionHash = tx.TransactionHash,
+                                    Amount = tx.Amount,
+                                    BlockNumber = tx.BlockNumber,
+                                    Timestamp = DateTime.UtcNow,
+                                    Currency = tx.Currency,
+                                    Network = command.Network
+                                };
 
-                            var request = new TransactionReceivedEvent()
-                            {
-                                ReceiverAddress = transactions[k].ReceiverAddress,
-                                Amount = transactions[k].Amount,
-                                BlockNumber = transactions[k].BlockNumber,
-                                Currency = transactions[k].Currency,
-                                SenderAddress = transactions[k].SenderAddress,
-                                TransactionHash = transactions[k].TransactionHash
-                            };
+                                allTransactions.Add(transaction);
+                                processedTransactionHashes.Add(tx.TransactionHash);
 
-                            _eventBus.Publish("transaction-topic", request);
+                                var request = new TransactionReceivedEvent()
+                                {
+                                    ReceiverAddress = tx.ReceiverAddress,
+                                    Amount = tx.Amount,
+                                    BlockNumber = tx.BlockNumber,
+                                    Currency = tx.Currency,
+                                    SenderAddress = tx.SenderAddress,
+                                    TransactionHash = tx.TransactionHash
+                                };
 
+                                _eventBus.Publish("transaction-topic", request);
+                            }
                         }
                     }
+
                 }
                 else {
                   //Do nothing

@@ -68,3 +68,17 @@ C:\Users\Dubem007\source\repos\CryptoTransactionService\CryptoTransaction.API\ob
 C:\Users\Dubem007\source\repos\CryptoTransactionService\CryptoTransaction.API\obj\Debug\net6.0\CryptoTransaction.API.pdb
 C:\Users\Dubem007\source\repos\CryptoTransactionService\CryptoTransaction.API\obj\Debug\net6.0\CryptoTransaction.API.genruntimeconfig.cache
 C:\Users\Dubem007\source\repos\CryptoTransactionService\CryptoTransaction.API\obj\Debug\net6.0\ref\CryptoTransaction.API.dll
+C:\Users\Dubem007\source\repos\CryptoTransactionService\CryptoTransaction.API\bin\Debug\net6.0\Microsoft.Extensions.Configuration.dll
+C:\Users\Dubem007\source\repos\CryptoTransactionService\CryptoTransaction.API\bin\Debug\net6.0\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\Dubem007\source\repos\CryptoTransactionService\CryptoTransaction.API\bin\Debug\net6.0\Microsoft.Extensions.Configuration.FileExtensions.dll
+C:\Users\Dubem007\source\repos\CryptoTransactionService\CryptoTransaction.API\bin\Debug\net6.0\Microsoft.Extensions.Configuration.Json.dll
+C:\Users\Dubem007\source\repos\CryptoTransactionService\CryptoTransaction.API\bin\Debug\net6.0\Microsoft.Extensions.FileProviders.Abstractions.dll
+C:\Users\Dubem007\source\repos\CryptoTransactionService\CryptoTransaction.API\bin\Debug\net6.0\Microsoft.Extensions.FileProviders.Physical.dll
+C:\Users\Dubem007\source\repos\CryptoTransactionService\CryptoTransaction.API\bin\Debug\net6.0\Microsoft.Extensions.FileSystemGlobbing.dll
+C:\Users\Dubem007\source\repos\CryptoTransactionService\CryptoTransaction.API\bin\Debug\net6.0\Microsoft.Extensions.Primitives.dll
+C:\Users\Dubem007\source\repos\CryptoTransactionService\CryptoTransaction.API\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\Dubem007\source\repos\CryptoTransactionService\CryptoTransaction.API\bin\Debug\net6.0\OnaxTools.dll
+C:\Users\Dubem007\source\repos\CryptoTransactionService\CryptoTransaction.API\bin\Debug\net6.0\RestSharp.dll
+C:\Users\Dubem007\source\repos\CryptoTransactionService\CryptoTransaction.API\bin\Debug\net6.0\System.Text.Encodings.Web.dll
+C:\Users\Dubem007\source\repos\CryptoTransactionService\CryptoTransaction.API\bin\Debug\net6.0\System.Text.Json.dll
+C:\Users\Dubem007\source\repos\CryptoTransactionService\CryptoTransaction.API\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll

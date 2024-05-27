@@ -11,10 +11,11 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("fd209e74-581a-4dd7-a83b-4e2de308cbb9")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("CryptoTransaction.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+06ff5988165413458e71b3cb5d2a698715096ac8")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d2a46f63d39fa128892d61095a734620619c8e29")]
 [assembly: System.Reflection.AssemblyProductAttribute("CryptoTransaction.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CryptoTransaction.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

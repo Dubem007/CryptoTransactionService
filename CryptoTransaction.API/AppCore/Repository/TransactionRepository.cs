@@ -4,6 +4,8 @@ using System.Transactions;
 using CryptoTransaction.API.Domain;
 using CryptoTransaction.API.Persistence;
 using Microsoft.AspNetCore.HttpOverrides;
+using CryptoTransaction.API.Common;
+using OnaxTools.Dto.Http;
 
 namespace CryptoTransaction.API.AppCore.Repository
 {
@@ -55,17 +57,35 @@ namespace CryptoTransaction.API.AppCore.Repository
             }
         }
 
-        public async Task<List<WalletTransaction>> GetTransactionsByQueryAsync(long blockNumber, string walletAddress, string currency)
+        public async Task<GenResponse<List<WalletTransaction>>> GetTransactionsByQueryAsync(long blockNumber, string walletAddress, string currency)
         {
+            GenResponse<List<WalletTransaction>> objResp = new();
             try
-            {
-                return await _dbContext.WalletTransactions
+            { 
+                var resp = await _dbContext.WalletTransactions
                  .Where(t => t.BlockNumber == blockNumber && t.Currency == currency && t.ReceiverAddress == walletAddress || t.SenderAddress == walletAddress).ToListAsync();
+                if (resp.Count() > 0)
+                {
+                    objResp.IsSuccess = true;
+                    objResp.Result = resp;
+                    objResp.Message = AppConstants.DataRetrieveSuccessResponse;
+                }
+                else
+                {
+                    objResp.IsSuccess = false;
+                    objResp.Result = resp;
+                    objResp.Message = AppConstants.DataRetrieveFailureResponse;
+                }
             }
             catch (Exception ex)
             {
-                return null;
+
+                objResp.IsSuccess = false;
+                objResp.Result = new List<WalletTransaction>();
+                objResp.Message = $"{AppConstants.FailedRequestError} {ex.Message}";
             }
+
+            return objResp;
         }
     }
 }

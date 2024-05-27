@@ -21,11 +21,12 @@ namespace CryptoTransaction.API.AppCore.EventBus.Handler
         }
         public async Task HandleAsync(BlockMinedEvent @event)
         {
-            var request = new ScanBlockForDepositToAddressCommand(){
-                               BlockNumber = @event.BlockNumber,
-                               Network =  @event.Network,
-                               BlockHash = @event.BlockHash
-                            };
+            var request = new ScanBlockForDepositToAddressCommand()
+            {
+                BlockNumber = @event.BlockNumber,
+                Network =  @event.Network,
+                BlockHash = @event.BlockHash
+            };
             //Send a scan block comand to get wallet transactions from wallet address
             await _commandBus.SendAsync(request);
         }
