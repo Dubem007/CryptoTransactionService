@@ -26,6 +26,7 @@ namespace CryptoTransaction.API.AppCore.EventBus.Handler
         public async Task HandleAsync(ScanBlockForDepositToAddressCommand command)
         {
             var allTransactions = new List<WalletTransaction>();
+            var processedTransactionHashes = new HashSet<string>();
             var walletDetails = await _transactionService.GetTransactionsByBlockNumberAsync(command.BlockNumber, command.Network);
 
             var allsortedwalletAddress = walletDetails
@@ -37,48 +38,45 @@ namespace CryptoTransaction.API.AppCore.EventBus.Handler
             {
                 if (allsortedwalletAddress[i] != null)
                 {
-                    var processedTransactionHashes = new HashSet<string>();
+                    var transactions = await _transactionService.GetTransactionsByWalletAddressAsync(allsortedwalletAddress[i]);
+                   
 
-                    foreach (var address in allsortedwalletAddress)
+                    for (int k = 0; k < allsortedwalletAddress.Count; k++)
                     {
-                        var transactions = await _transactionService.GetTransactionsByWalletAddressAsync(address);
-
-                        foreach (var tx in transactions)
+                        if (!string.IsNullOrEmpty(transactions[k].SenderAddress) &&
+                            !string.IsNullOrEmpty(transactions[k].ReceiverAddress) &&
+                            !string.IsNullOrEmpty(transactions[k].TransactionHash) &&
+                            !processedTransactionHashes.Contains(transactions[k].TransactionHash))
                         {
-                            if (!string.IsNullOrEmpty(tx.SenderAddress) &&
-                                !string.IsNullOrEmpty(tx.ReceiverAddress) &&
-                                !string.IsNullOrEmpty(tx.TransactionHash) &&
-                                !processedTransactionHashes.Contains(tx.TransactionHash))
+                            var transaction = new WalletTransaction()
                             {
-                                var transaction = new WalletTransaction()
-                                {
-                                    ReceiverAddress = tx.ReceiverAddress,
-                                    SenderAddress = tx.SenderAddress,
-                                    TransactionHash = tx.TransactionHash,
-                                    Amount = tx.Amount,
-                                    BlockNumber = tx.BlockNumber,
-                                    Timestamp = DateTime.UtcNow,
-                                    Currency = tx.Currency,
-                                    Network = command.Network
-                                };
+                                ReceiverAddress = transactions[k].ReceiverAddress,
+                                SenderAddress = transactions[k].SenderAddress,
+                                TransactionHash = transactions[k].TransactionHash,
+                                Amount = transactions[k].Amount,
+                                BlockNumber = transactions[k].BlockNumber,
+                                Timestamp = DateTime.UtcNow,
+                                Currency = transactions[k].Currency,
+                                Network = command.Network
+                            };
 
-                                allTransactions.Add(transaction);
-                                processedTransactionHashes.Add(tx.TransactionHash);
+                            allTransactions.Add(transaction);
+                            processedTransactionHashes.Add(transactions[k].TransactionHash);
 
-                                var request = new TransactionReceivedEvent()
-                                {
-                                    ReceiverAddress = tx.ReceiverAddress,
-                                    Amount = tx.Amount,
-                                    BlockNumber = tx.BlockNumber,
-                                    Currency = tx.Currency,
-                                    SenderAddress = tx.SenderAddress,
-                                    TransactionHash = tx.TransactionHash
-                                };
+                            var request = new TransactionReceivedEvent()
+                            {
+                                ReceiverAddress = transactions[k].ReceiverAddress,
+                                Amount = transactions[k].Amount,
+                                BlockNumber = transactions[k].BlockNumber,
+                                Currency = transactions[k].Currency,
+                                SenderAddress = transactions[k].SenderAddress,
+                                TransactionHash = transactions[k].TransactionHash
+                            };
 
-                                _eventBus.Publish("transaction-topic", request);
-                            }
+                            _eventBus.Publish("transaction-topic", request);
                         }
                     }
+                    
 
                 }
                 else {

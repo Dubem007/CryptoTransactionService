@@ -60,9 +60,17 @@
               "target": "Package",
               "version": "[6.0.30, )"
             },
+            "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
+              "target": "Package",
+              "version": "[1.19.5, )"
+            },
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.3, )"
+            },
+            "OnaxTools.Utils": {
+              "target": "Package",
+              "version": "[2.0.10, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
@@ -145,6 +153,10 @@
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
               "version": "[17.5.0, )"
+            },
+            "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
+              "target": "Package",
+              "version": "[1.19.5, )"
             },
             "Moq": {
               "target": "Package",

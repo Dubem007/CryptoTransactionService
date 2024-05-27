@@ -11,6 +11,7 @@ using CryptoTransaction.API.Persistence;
 using CryptoTransaction.API.AppCore.Interfaces.Repository;
 using CryptoTransaction.API.AppCore.EventBus.Command.Interface;
 using CryptoTransaction.API.Domain;
+using OnaxTools.Dto.Http;
 
 public class TransactionControllerTests
 {
@@ -32,14 +33,16 @@ public class TransactionControllerTests
         long blockNumber = 234562;
         string address = "0x12345678";
         string currency = "USDT";
+        var resp = new GenResponse<List<WalletTransaction>>();
         var transactions = new List<WalletTransaction>
         {
             new WalletTransaction { BlockNumber = blockNumber, ReceiverAddress = address, Currency = currency, Amount = 100 },
             new WalletTransaction { BlockNumber = blockNumber, SenderAddress = address, Currency = currency, Amount = 200 }
         };
-
+        resp.Result = transactions;
+        resp.IsSuccess = true;
         _transactionRepositoryMock.Setup(repo => repo.GetTransactionsByQueryAsync(blockNumber, address, currency))
-                                  .ReturnsAsync(transactions);
+                                  .ReturnsAsync(resp);
 
         // Act
         var result = await _controller.GetTransactionsForAddress(blockNumber, address, currency);
@@ -58,9 +61,11 @@ public class TransactionControllerTests
         string address = "0x12345678";
         string currency = "USDT";
         var transactions = new List<WalletTransaction>();
-
+        var resp = new GenResponse<List<WalletTransaction>>();
+        resp.Result = transactions;
+        resp.IsSuccess = true;
         _transactionRepositoryMock.Setup(repo => repo.GetTransactionsByQueryAsync(blockNumber, address, currency))
-                                  .ReturnsAsync(transactions);
+                                  .ReturnsAsync(resp);
 
         // Act
         var result = await _controller.GetTransactionsForAddress(blockNumber, address, currency);

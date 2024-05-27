@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "CryptoTransaction.TEST": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}
